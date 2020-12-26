@@ -1,0 +1,44 @@
+{
+  "name": "tecnodesignc/page-module",
+  "type": "encore-module",
+  "description": "Page module for EncoreCMS. Page management.",
+  "keywords": [
+    "encorecms",
+    "pages"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marcos Rativa",
+      "email": "marcos21.009@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "support@tecnodesign.com.co",
+    "issues": "https://github.com/tecnodesignc/Page/issues",
+    "source": "https://github.com/tecnodesignc/Page"
+  },
+  "require": {
+    "php": ">=7.1.0",
+    "composer/installers": "~1.0",
+    "tecnodesignc/tag-module": "~1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.0",
+    "orchestra/testbench": "3.5.*"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Modules\\Page\\": ".",
+      "Modules\\": "Modules/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

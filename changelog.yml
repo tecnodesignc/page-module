@@ -3,3 +3,6 @@ versions:
     "1.0.0":
         added:
             - Initial Version Module
+    "1.0.1":
+        added:
+            - Save pages Front

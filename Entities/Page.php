@@ -82,10 +82,17 @@ class Page extends Model implements TaggableInterface
     {
         $thumbnail = $this->files()->where('zone', 'image')->first();
 
-        if ($thumbnail === null) {
-            return '';
+        if (!$thumbnail) {
+            $image = [
+                'mimeType' => null,
+                'path' =>null
+            ];
+        } else {
+            $image = [
+                'mimeType' => $thumbnail->mimetype,
+                'path' => $thumbnail->path_string
+            ];
         }
-
-        return $thumbnail;
+        return json_decode(json_encode($image));
     }
 }

@@ -6,3 +6,6 @@ versions:
     "1.0.1":
         added:
             - Save pages Front
+    "1.0.2":
+        changed:
+            - getCanonicalUrl Mutator

@@ -54,7 +54,7 @@ class Page extends Model implements TaggableInterface
             return url('/');
         }
 
-        return route('page', $this->slug);
+        return route('page', $this->slug??'');
     }
 
     public function getEditUrl() : string

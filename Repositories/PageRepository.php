@@ -13,20 +13,20 @@ interface PageRepository extends BaseRepository
      * Find the page set as homepage
      * @return object
      */
-    public function findHomepage();
+    public function findHomepage(): object;
 
     /**
      * Count all records
      * @return int
      */
-    public function countAll();
+    public function countAll(): int;
 
     /**
      * @param $slug
      * @param $locale
      * @return object
      */
-    public function findBySlugInLocale($slug, $locale);
+    public function findBySlugInLocale($slug, $locale): object;
 
     /**
      * Paginating, ordering and searching through pages for server side index table
@@ -40,24 +40,24 @@ interface PageRepository extends BaseRepository
      * @return mixed
      * @internal param int $pageId
      */
-    public function markAsOnlineInAllLocales(Page $page);
+    public function markAsOnlineInAllLocales(Page $page): mixed;
 
     /**
      * @param array $pageIds[int]
      * @return mixed
      */
-    public function markMultipleAsOnlineInAllLocales(array $pageIds);
+    public function markMultipleAsOnlineInAllLocales(array $pageIds): mixed;
 
     /**
      * @param Page $page
      * @return mixed
      * @internal param int $pageId
      */
-    public function markAsOfflineInAllLocales(Page $page);
+    public function markAsOfflineInAllLocales(Page $page): mixed;
 
     /**
      * @param array $pageIds[int]
      * @return mixed
      */
-    public function markMultipleAsOfflineInAllLocales(array $pageIds);
+    public function markMultipleAsOfflineInAllLocales(array $pageIds): mixed;
 }

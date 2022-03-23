@@ -56,12 +56,13 @@ class PageApiController extends BaseApiController
   }
 
 
-  /**
-   * GET A ITEM
-   *
-   * @param $criteria
-   * @return mixed
-   */
+    /**
+     * GET A ITEM
+     *
+     * @param string $criteria
+     * @param Request $request
+     * @return mixed
+     */
   public function show($criteria, Request $request)
   {
     try {
@@ -156,12 +157,13 @@ class PageApiController extends BaseApiController
   }
 
 
-  /**
-   * DELETE A ITEM
-   *
-   * @param $criteria
-   * @return mixed
-   */
+    /**
+     * DELETE A ITEM
+     *
+     * @param $criteria
+     * @param Request $request
+     * @return mixed
+     */
   public function delete($criteria, Request $request)
   {
     \DB::beginTransaction();

@@ -10,10 +10,7 @@ use Modules\Page\Repositories\PageRepository;
 
 class CachePageDecorator extends BaseCacheDecorator implements PageRepository
 {
-    /**
-     * @var PageRepository
-     */
-    protected $repository;
+
 
     public function __construct(PageRepository $page)
     {
@@ -27,7 +24,7 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
      *
      * @return object
      */
-    public function findHomepage()
+    public function findHomepage(): object
     {
         return $this->remember(function () {
             return $this->repository->findHomepage();
@@ -38,7 +35,7 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
      * Count all records
      * @return int
      */
-    public function countAll()
+    public function countAll(): int
     {
         return $this->remember(function () {
             return $this->repository->countAll();
@@ -50,7 +47,7 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
      * @param $locale
      * @return object
      */
-    public function findBySlugInLocale($slug, $locale)
+    public function findBySlugInLocale($slug, $locale): object
     {
         return $this->remember(function () use ($slug, $locale) {
             return $this->repository->findBySlugInLocale($slug, $locale);
@@ -81,7 +78,7 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
      * @param Page $page
      * @return mixed
      */
-    public function markAsOnlineInAllLocales(Page $page)
+    public function markAsOnlineInAllLocales(Page $page): mixed
     {
         $this->clearCache();
 
@@ -92,7 +89,7 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
      * @param Page $page
      * @return mixed
      */
-    public function markAsOfflineInAllLocales(Page $page)
+    public function markAsOfflineInAllLocales(Page $page): mixed
     {
         $this->clearCache();
 
@@ -103,7 +100,7 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
      * @param array $pageIds [int]
      * @return mixed
      */
-    public function markMultipleAsOnlineInAllLocales(array $pageIds)
+    public function markMultipleAsOnlineInAllLocales(array $pageIds): mixed
     {
         $this->clearCache();
 
@@ -114,39 +111,10 @@ class CachePageDecorator extends BaseCacheDecorator implements PageRepository
      * @param array $pageIds [int]
      * @return mixed
      */
-    public function markMultipleAsOfflineInAllLocales(array $pageIds)
+    public function markMultipleAsOfflineInAllLocales(array $pageIds): mixed
     {
         $this->clearCache();
 
         return $this->repository->markMultipleAsOfflineInAllLocales($pageIds);
     }
-
-    /**
-     * List or resources
-     *
-     * @param array $params
-     * @return collection
-     */
-    public function getItemsBy(array $params)
-    {
-        return $this->remember(function () use ($params) {
-            return $this->repository->getItemsBy($params);
-        });
-    }
-
-
-    /**
-     * find a resource by id or slug
-     *
-     * @param array $criteria
-     * @param array $params
-     * @return object
-     */
-    public function getItem(array $criteria, array $params)
-    {
-        return $this->remember(function () use ($criteria, $params) {
-            return $this->repository->getItem($criteria, $params);
-        });
-    }
-
 }

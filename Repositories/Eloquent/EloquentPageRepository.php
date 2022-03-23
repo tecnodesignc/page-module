@@ -2,7 +2,9 @@
 
 namespace Modules\Page\Repositories\Eloquent;
 
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -20,9 +22,11 @@ use Modules\Page\Repositories\PageRepository;
 class EloquentPageRepository extends EloquentBaseRepository implements PageRepository
 {
     /**
-     * @inheritdoc
+     * Paginate the model to $perPage items per page
+     * @param int $perPage
+     * @return LengthAwarePaginator
      */
-    public function paginate($perPage = 15)
+    public function paginate(int $perPage = 15):  LengthAwarePaginator
     {
         if (method_exists($this->model, 'translations')) {
             return $this->model->with('translations')->paginate($perPage);
@@ -35,7 +39,7 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
      * Find the page set as homepage
      * @return object
      */
-    public function findHomepage()
+    public function findHomepage():object
     {
         return $this->model->where('is_home', 1)->first();
     }
@@ -44,16 +48,17 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
      * Count all records
      * @return int
      */
-    public function countAll()
+    public function countAll(): int
     {
         return $this->model->count();
     }
 
     /**
-     * @param  mixed  $data
-     * @return object
+     * Create a resource
+     * @param  $data
+     * @return Model|Collection|Builder|array|null
      */
-    public function create($data)
+    public function create($data): Model|Collection|Builder|array|null
     {
         if (Arr::get($data, 'is_home') === '1') {
             $this->removeOtherHomepage();
@@ -70,11 +75,12 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
     }
 
     /**
-     * @param $model
-     * @param  array  $data
-     * @return object
+     * Update a resource
+     * @param  $model
+     * @param array $data
+     * @return Model|Collection|Builder|array|null
      */
-    public function update($model, $data)
+    public function update($model, $data): Model|Collection|Builder|array|null
     {
         if (Arr::get($data, 'is_home') === '1') {
             $this->removeOtherHomepage($model->id);
@@ -89,14 +95,18 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
 
         return $model;
     }
-
-    public function destroy($page)
+    /**
+     * Destroy a resource
+     * @param  $model
+     * @return bool
+     */
+    public function destroy($model): bool
     {
-        $page->untag();
+        $model->untag();
 
-        event(new PageWasDeleted($page));
+        event(new PageWasDeleted($model));
 
-        return $page->delete();
+        return $model->delete();
     }
 
     /**
@@ -104,7 +114,7 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
      * @param $locale
      * @return object
      */
-    public function findBySlugInLocale($slug, $locale)
+    public function findBySlugInLocale($slug, $locale):object
     {
         if (method_exists($this->model, 'translations')) {
             return $this->model->whereHas('translations', function (Builder $q) use ($slug, $locale) {
@@ -178,9 +188,9 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
 
     /**
      * @param Page $page
-     * @return mixed
+     * @return Model|Collection|array|Builder|null
      */
-    public function markAsOnlineInAllLocales(Page $page)
+    public function markAsOnlineInAllLocales(Page $page): Model|Collection|array|null|Builder
     {
         $data = [];
         foreach (app(LaravelLocalization::class)->getSupportedLocales() as $locale => $supportedLocale) {
@@ -192,9 +202,9 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
 
     /**
      * @param Page $page
-     * @return mixed
+     * @return Model|Collection|Builder|array|null
      */
-    public function markAsOfflineInAllLocales(Page $page)
+    public function markAsOfflineInAllLocales(Page $page):Model|Collection|Builder|array|null
     {
         $data = [];
         foreach (app(LaravelLocalization::class)->getSupportedLocales() as $locale => $supportedLocale) {
@@ -206,9 +216,9 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
 
     /**
      * @param array $pageIds [int]
-     * @return mixed
+     * @return Model|Collection|Builder|array|null
      */
-    public function markMultipleAsOnlineInAllLocales(array $pageIds)
+    public function markMultipleAsOnlineInAllLocales(array $pageIds): Model|Collection|Builder|array|null
     {
         foreach ($pageIds as $pageId) {
             $this->markAsOnlineInAllLocales($this->find($pageId));
@@ -219,13 +229,20 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
      * @param array $pageIds [int]
      * @return mixed
      */
-    public function markMultipleAsOfflineInAllLocales(array $pageIds)
+    public function markMultipleAsOfflineInAllLocales(array $pageIds): mixed
     {
         foreach ($pageIds as $pageId) {
             $this->markAsOfflineInAllLocales($this->find($pageId));
         }
     }
-    public function getItemsBy($params = false)
+
+    /**
+     * Get resources by an array of attributes
+     * @param object $params
+     * @return LengthAwarePaginator|Collection
+     */
+
+    public function getItemsBy($params = false): LengthAwarePaginator|Collection
     {
         /*== initialize query ==*/
         $query = $this->model->query();
@@ -289,8 +306,13 @@ class EloquentPageRepository extends EloquentBaseRepository implements PageRepos
         }
     }
 
-
-    public function getItem($criteria, $params = false)
+    /**
+     * Find a resource by id or slug
+     * @param string $criteria
+     * @param object $params
+     * @return Model|Collection|Builder|array|null
+     */
+    public function getItem(string $criteria, $params = false): Model|Collection|Builder|array|null
     {
         //Initialize query
         $query = $this->model->query();

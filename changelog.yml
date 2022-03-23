@@ -1,11 +1,15 @@
 url: https://github.com/EncoreCms/Platform
 versions:
-    "1.0.0":
-        added:
-            - Initial Version Module
-    "1.0.1":
-        added:
-            - Save pages Front
-    "1.0.2":
-        changed:
-            - getCanonicalUrl Mutator
+
+  "2.0.0":
+    changed:
+      - Laravel 9 compatibility
+  "1.0.2":
+      changed:
+          - getCanonicalUrl Mutator
+  "1.0.1":
+      added:
+          - Save pages Front
+  "1.0.0":
+      added:
+          - Initial Version Module

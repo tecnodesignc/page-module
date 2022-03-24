@@ -19,7 +19,7 @@ class PageContentIsRendering
     /**
      * @return string
      */
-    public function getBody()
+    public function getBody(): string
     {
         return $this->body;
     }
@@ -27,7 +27,7 @@ class PageContentIsRendering
     /**
      * @param string $body
      */
-    public function setBody($body)
+    public function setBody(string $body)
     {
         $this->body = $body;
     }
@@ -35,7 +35,7 @@ class PageContentIsRendering
     /**
      * @return mixed
      */
-    public function getOriginal()
+    public function getOriginal(): mixed
     {
         return $this->original;
     }

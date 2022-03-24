@@ -9,7 +9,7 @@ class PageWasDeleted
     /**
      * @var Page
      */
-    public $page;
+    public Page $page;
 
     public function __construct($page)
     {

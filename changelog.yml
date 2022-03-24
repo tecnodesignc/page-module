@@ -1,6 +1,8 @@
-url: https://github.com/EncoreCms/Platform
+url: https://github.com/tecnodesignc/page-module
 versions:
-
+  "2.0.1":
+    changed:
+      - Events class compatible with Media Events
   "2.0.0":
     changed:
       - Laravel 9 compatibility

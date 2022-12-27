@@ -17,9 +17,9 @@ class PageContentIsRendering
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBody(): string
+    public function getBody(): string|null
     {
         return $this->body;
     }

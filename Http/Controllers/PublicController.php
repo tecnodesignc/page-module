@@ -3,6 +3,7 @@
 namespace Modules\Page\Http\Controllers;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\View\View;
 use Modules\Core\Http\Controllers\BasePublicController;
 use Modules\Menu\Repositories\MenuItemRepository;
 use Modules\Page\Entities\Page;
@@ -30,9 +31,9 @@ class PublicController extends BasePublicController
 
     /**
      * @param $slug
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function uri($slug)
+    public function uri($slug):View
     {
         $page = $this->findPageForSlug($slug);
 
@@ -52,9 +53,9 @@ class PublicController extends BasePublicController
     }
 
     /**
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function homepage()
+    public function homepage():View
     {
         $page = $this->page->findHomepage();
 
@@ -90,7 +91,7 @@ class PublicController extends BasePublicController
      * @param $page
      * @return string
      */
-    private function getTemplateForPage($page)
+    private function getTemplateForPage($page): string
     {
         return (view()->exists($page->template)) ? $page->template : 'default';
     }

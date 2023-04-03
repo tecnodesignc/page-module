@@ -1,34 +1,36 @@
 {
     "name": "tecnodesignc/page-module",
     "type": "encore-module",
-    "description": "Page module for EncoreCMS 2. Page management.",
+    "description": "Page module for EncoreCMS 2.1. Page management.",
     "keywords": [
-        "encorecms",
-        "pages"
+        "EncoreCMS",
+        "pages",
+        "Builder",
+        "Website"
     ],
     "license": "MIT",
     "authors": [
         {
             "name": "Marcos Rativa",
-            "email": "marcos21.009@gmail.com",
+            "email": "info@tecnodesign.com.co",
             "role": "Developer"
         }
     ],
     "support": {
         "email": "support@tecnodesign.com.co",
-        "issues": "https://github.com/tecnodesignc/Page/issues",
-        "source": "https://github.com/tecnodesignc/Page"
+        "issues": "https://github.com/tecnodesignc/encorecms/issues",
+        "source": "https://github.com/tecnodesignc/page-module"
     },
     "require": {
         "php": ">=8.0",
         "composer/installers": "^2.1",
-        "tecnodesignc/tag-module": "^2.0"
+        "tecnodesignc/tag-module": "^2.1"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
-        "orchestra/testbench": "3.6.*"
+        "orchestra/testbench": "3.8.*"
     },
-    "autoload-dev": {
+    "autoload": {
         "psr-4": {
             "Modules\\Page\\": ".",
             "Modules\\": "modules/"
@@ -36,7 +38,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "2.1.x-dev"
         }
     },
     "minimum-stability": "dev",

@@ -1,5 +1,11 @@
 url: https://github.com/tecnodesignc/page-module
 versions:
+  "2.1.0":
+    changed:
+      - Laravel 10 compatibility
+  "2.0.2":
+    changed:
+      - Event Reading and PublicController
   "2.0.1":
     changed:
       - Events class compatible with Media Events
